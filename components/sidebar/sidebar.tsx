@@ -54,42 +54,35 @@ export const SidebarWrapper = () => {
                      isActive={router.pathname === '/'}
                      href="/"
                   />
-                  <SidebarMenu title="Main Menu">
+                  <SidebarMenu title="Spare Management">
+                     <SidebarItem
+                        isActive={router.pathname === '/findspare'}
+                        title="Find Spares"
+                        icon={<BalanceIcon />}
+                        href="findspare"
+                     />
                      <SidebarItem
                         isActive={router.pathname === '/accounts'}
-                        title="Accounts"
+                        title="Store"
                         icon={<AccountsIcon />}
                         href="accounts"
                      />
                      <SidebarItem
-                        isActive={router.pathname === '/payments'}
-                        title="Payments"
-                        icon={<PaymentsIcon />}
+                        isActive={router.pathname === '/'}
+                        title="Analytic"
+                        icon={<AccountsIcon />}
+                        href="accounts"
                      />
-                     <CollapseItems
+                     {/* <CollapseItems
                         icon={<BalanceIcon />}
-                        items={['Banks Accounts', 'Credit Cards', 'Loans']}
-                        title="Balances"
-                     />
-
-                     <SidebarItem
-                        isActive={router.pathname === '/customers'}
-                        title="Customers"
-                        icon={<CustomersIcon />}
-                     />
-                     <SidebarItem
-                        isActive={router.pathname === '/products'}
-                        title="Products"
-                        icon={<ProductsIcon />}
-                     />
-                     <SidebarItem
-                        isActive={router.pathname === '/reports'}
-                        title="Reports"
-                        icon={<ReportsIcon />}
-                     />
+                        isActive={router.pathname === '/findspare'}
+                        items={['Marvel', 'IBSE', 'NGT']}
+                        title="Find Spares"
+                        href="findspare"
+                     /> */}
                   </SidebarMenu>
 
-                  <SidebarMenu title="General">
+                  {/* <SidebarMenu title="General">
                      <SidebarItem
                         isActive={router.pathname === '/developers'}
                         title="Developers"
@@ -105,15 +98,15 @@ export const SidebarWrapper = () => {
                         title="Settings"
                         icon={<SettingsIcon />}
                      />
-                  </SidebarMenu>
+                  </SidebarMenu> */}
 
-                  <SidebarMenu title="Updates">
+                  {/* <SidebarMenu title="Updates">
                      <SidebarItem
                         isActive={router.pathname === '/changelog'}
                         title="Changelog"
                         icon={<ChangeLogIcon />}
                      />
-                  </SidebarMenu>
+                  </SidebarMenu> */}
                </Sidebar.Body>
                <Sidebar.Footer>
                   <Tooltip content={'Settings'} rounded color="primary">
