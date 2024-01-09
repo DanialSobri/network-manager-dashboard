@@ -12,8 +12,20 @@ import { SettingsIcon } from '../icons/sidebar/settings-icon';
 import { Flex } from '../styles/flex';
 import { TableWrapper } from './table';
 import { AddUser } from './add-user';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Search from './search';
 
 export const FindSpare = () => {
+
+   const [selected, setSelected] = useState("Marvel");
+   const selectedValue = React.useMemo(
+      () => Array.from(selected).join("").replaceAll("_", " "),
+      [selected]
+   );
+   const router = useRouter();
+   const { name } = router.query;
+
    return (
       <Flex
          css={{
@@ -27,25 +39,25 @@ export const FindSpare = () => {
          justify={'center'}
          direction={'column'}
       >
-         <Breadcrumbs>
-            <Crumb>
-               <HouseIcon />
-               <Link href={'/'}>
-                  <CrumbLink href="#">Home</CrumbLink>
-               </Link>
-               <Text>/</Text>
-            </Crumb>
-
-            <Crumb>
-               <UsersIcon />
-               <CrumbLink href="#">Spares</CrumbLink>
-               <Text>/</Text>
-            </Crumb>
-            <Crumb>
-               <CrumbLink href="#">Marvel</CrumbLink>
-            </Crumb>
-         </Breadcrumbs>
-
+         <Flex direction={'row'} css={{ gap: '$6' }} wrap={'wrap'} justify={'end'}>
+            <Dropdown>
+               <Dropdown.Button flat color="secondary" css={{ tt: "capitalize" }}>
+                  {selectedValue}
+               </Dropdown.Button>
+               <Dropdown.Menu
+                  aria-label="Single selection actions"
+                  color="secondary"
+                  disallowEmptySelection
+                  selectionMode="single"
+                  selectedKeys={selected}
+                  onSelectionChange={setSelected as any}
+               >
+                  <Dropdown.Item key="Marvel">Marvel</Dropdown.Item>
+                  <Dropdown.Item key="IBSE">IBSE</Dropdown.Item>
+                  <Dropdown.Item key="NGT">NGT</Dropdown.Item>
+               </Dropdown.Menu>
+            </Dropdown>
+         </Flex>
          <Text h3>Find Spares</Text>
          <Flex
             css={{ gap: '$8' }}
@@ -61,21 +73,23 @@ export const FindSpare = () => {
                }}
                align={'center'}
             >
-               <Input
-                  css={{ width: '100%', maxW: '410px' }}
-                  placeholder="Search spares"
-               />
-               <SettingsIcon />
-               <TrashIcon />
+               <Search />
+               {(!name) ? (
+                  <div>
+                     <Button auto>
+                        Filter
+                     </Button>
+                  </div>) : (
+                  <Button auto>
+                     Clear Filter
+                  </Button>)
+               }
+
+               {/* <TrashIcon />
                <InfoIcon />
-               <DotsIcon />
+               <DotsIcon /> */}
             </Flex>
-            <Flex direction={'row'} css={{ gap: '$6' }} wrap={'wrap'}>
-               <AddUser />
-               <Button auto iconRight={<ExportIcon />}>
-                  Export to CSV
-               </Button>
-            </Flex>
+
          </Flex>
 
          <TableWrapper />

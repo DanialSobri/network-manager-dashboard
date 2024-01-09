@@ -8,14 +8,14 @@ export const TableWrapper = () => {
    const [spares, setSpares] = useState([]);
    const [loading, setLoading] = useState(true);
    const [error, setError] = useState(null);
-   
+
    const router = useRouter();
    const { name } = router.query;
 
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const response = await fetch('/api/spare/filter?name='+name);
+            const response = await fetch('/api/spare/filter?name=' + name);
             if (!response.ok) {
                throw new Error('Network response was not ok');
             }
@@ -23,7 +23,7 @@ export const TableWrapper = () => {
             const data = await response.json();
             setSpares(data.spares);
          } catch (error) {
-            setError(error);
+            setError(error as any);
          } finally {
             setLoading(false);
          }
@@ -31,7 +31,7 @@ export const TableWrapper = () => {
 
       if (name) {
          fetchData();
-       }
+      }
    }, [name]);
 
    const columns = [
@@ -42,10 +42,26 @@ export const TableWrapper = () => {
    ];
 
    // Conditionally render loading state
-   if (!name) return <div>Start searching.</div>;
-   if (loading) return <div>Loading...</div>;
-   if (!(spares.length>0)) return <div>spare not found.</div>;
-   if (error) return <div>Error loading data</div>;
+   if (!name) return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+         <div>Start searching.</div>
+      </div>
+   );
+   if (loading) return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+         <div>Loading...</div>
+      </div>
+   );
+   if (!(spares.length > 0)) return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+         <div>spare not found.</div>
+      </div>
+   );
+   if (error)  return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+         <div>Error loading data</div>
+      </div>
+   );
 
 
    return (
@@ -80,7 +96,7 @@ export const TableWrapper = () => {
             </Table.Header>
             <Table.Body items={spares}>
                {(item) => (
-                  <Table.Row key={item.pid}>
+                  <Table.Row key={item.pid as any}>
                      {(columnKey) => (
                         <Table.Cell>
                            {RenderCell({ spare: item, columnKey: columnKey })}
