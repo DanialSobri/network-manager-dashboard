@@ -10,12 +10,12 @@ export const TableWrapper = () => {
    const [error, setError] = useState(null);
 
    const router = useRouter();
-   const { name } = router.query;
+   const { name,gen } = router.query;
 
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const response = await fetch('/api/spare/filter?name=' + name);
+            const response = await fetch('/api/spare/filter?name=' + name+'&gen='+gen);
             if (!response.ok) {
                throw new Error('Network response was not ok');
             }

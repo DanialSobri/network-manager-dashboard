@@ -1,30 +1,39 @@
-import { Button, Input, Text } from '@nextui-org/react';
-import Link from 'next/link';
-import React from 'react';
-import { Breadcrumbs, Crumb, CrumbLink } from '../breadcrumb/breadcrumb.styled';
-import { DotsIcon } from '../icons/accounts/dots-icon';
-import { ExportIcon } from '../icons/accounts/export-icon';
-import { InfoIcon } from '../icons/accounts/info-icon';
-import { TrashIcon } from '../icons/accounts/trash-icon';
-import { HouseIcon } from '../icons/breadcrumb/house-icon';
-import { UsersIcon } from '../icons/breadcrumb/users-icon';
-import { SettingsIcon } from '../icons/sidebar/settings-icon';
+import { Button, Input, Text, Dropdown, Container } from '@nextui-org/react';
+
 import { Flex } from '../styles/flex';
 import { TableWrapper } from './table';
 import { AddUser } from './add-user';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Search from './search';
+import { useTransition } from 'react';
 
 export const FindSpare = () => {
 
-   const [selected, setSelected] = useState("Marvel");
+   const [selected, setSelected] = useState("marvel");
+   const [isPending, startTransition] = useTransition();
    const selectedValue = React.useMemo(
       () => Array.from(selected).join("").replaceAll("_", " "),
       [selected]
    );
    const router = useRouter();
    const { name } = router.query;
+   const currentPathname = router.pathname;
+
+
+   const onChangeGen = (value: string) => {
+      // Perform actions with the changed value, such as updating state or making API calls
+      console.log('Selected value changed:', value.toLowerCase());
+      const params = new URLSearchParams(window.location.search);
+      if (value) {
+          params.set('gen', value);
+      } else {
+          params.delete('gen');
+      }
+      startTransition(() => {
+         router.replace(`${currentPathname}?${params.toString()}`);
+     });
+    };
 
    return (
       <Flex
@@ -51,6 +60,7 @@ export const FindSpare = () => {
                   selectionMode="single"
                   selectedKeys={selected}
                   onSelectionChange={setSelected as any}
+                  onAction={onChangeGen as any}
                >
                   <Dropdown.Item key="Marvel">Marvel</Dropdown.Item>
                   <Dropdown.Item key="IBSE">IBSE</Dropdown.Item>
@@ -93,6 +103,12 @@ export const FindSpare = () => {
          </Flex>
 
          <TableWrapper />
+         <Flex direction={'row'} css={{ gap: '$6' }} wrap={'wrap'} justify={'end'}>
+            {/* <AddUser /> */}
+            {/* <Button auto iconRight={<ExportIcon />}>
+                  Checkout
+               </Button> */}
+         </Flex>
       </Flex>
    );
 };

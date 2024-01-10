@@ -68,10 +68,10 @@ export const SidebarWrapper = () => {
                         href="accounts"
                      />
                      <SidebarItem
-                        isActive={router.pathname === '/'}
+                        // isActive={router.pathname === '/'}
                         title="Analytic"
                         icon={<AccountsIcon />}
-                        href="accounts"
+                        href="/"
                      />
                      {/* <CollapseItems
                         icon={<BalanceIcon />}
