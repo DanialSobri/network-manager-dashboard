@@ -108,14 +108,14 @@ export const NavbarWrapper = ({children}: Props) => {
                <Navbar.Content hideIn={'md'}>
                   <SupportIcon />
                </Navbar.Content>
-               <Navbar.Content>
+               {/* <Navbar.Content>
                   <Link
                      href="https://github.com/"
                      target={'_blank'}
                   >
                      <GithubIcon />
                   </Link>
-               </Navbar.Content>
+               </Navbar.Content> */}
                <Navbar.Content>
                   <UserDropdown />
                </Navbar.Content>

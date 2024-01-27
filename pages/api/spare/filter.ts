@@ -4,10 +4,18 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
         if (req.method === 'GET') {
-            const { name,gen } = req.query;
+            let { name,gen,loc } = req.query;
             // Check if name is provided and is a string
             if (!name || typeof name !== 'string') {
                 return res.status(400).json({ error: 'Invalid or missing name parameter' });
+            }
+
+            if (!loc || typeof loc !== 'string') {
+                loc = '%'
+            }
+
+            if (!gen || typeof gen !== 'string') {
+                gen = "marvel";
             }
 
             // Open database
@@ -22,14 +30,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     // statement 1
                     spares = []
                     break;
+                case "marvel":
+                    // statement 1
+                    [spares] = await db.query('SELECT * FROM spare_marvel WHERE Description LIKE ? AND Router LIKE ?', [`%${name.toLowerCase()}%`,`%${loc.toLowerCase()}%`]);
+                    break;
                 default: 
-                    // Default call from marvel
-                    spares = await db.all('SELECT * FROM marvel WHERE Description LIKE ?', [`%${name}%`]);
+                    // Default call from spare_marvel
                     break;
              }
 
             // Close database
-            await db.close();
+            await db.end();
 
             return res.status(200).json({ spares });
         } else {

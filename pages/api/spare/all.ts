@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
    if (req.method === 'GET') {
       // Get spares from database  
-      const spares = await db.all('SELECT * FROM marvel')
+      const spares = await db.query('SELECT * FROM marvel')
 
       return res.status(200).json({ spares: spares })
    }
