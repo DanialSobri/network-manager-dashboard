@@ -5,7 +5,7 @@ import { RowDataPacket } from "mysql2";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
         if (req.method === 'GET') {
-            let { name,gen,loc } = req.query;
+            let { name, gen, loc } = req.query;
             // Check if name is provided and is a string
             if (!name || typeof name !== 'string') {
                 return res.status(400).json({ error: 'Invalid or missing name parameter' });
@@ -23,22 +23,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const db = await openDb();
 
             // Get spares from database using parameterized query
-            var spares:RowDataPacket[] = [];
-            
-            
-            switch ( gen ) {
+            var spares: RowDataPacket[] = [];
+
+
+            switch (gen) {
                 case "ibse":
                     // statement 1
                     spares = []
                     break;
                 case "marvel":
                     // statement 1
-                    [spares] = await db.query('SELECT * FROM spare_marvel WHERE Description LIKE ? AND Router LIKE ?', [`%${name.toLowerCase()}%`,`%${loc.toLowerCase()}%`]);
+                    [spares] = await db.query('SELECT * FROM spare_marvel WHERE Description LIKE ? AND Router LIKE ?', [`%${name.toLowerCase()}%`, `%${loc.toLowerCase()}%`]) as any;
                     break;
-                default: 
+                default:
                     // Default call from spare_marvel
                     break;
-             }
+            }
 
             // Close database
             await db.end();
