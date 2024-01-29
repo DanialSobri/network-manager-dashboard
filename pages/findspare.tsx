@@ -6,7 +6,7 @@ import { SelectDomain } from '../components/findspare/SelectDomain';
 import { useRouter } from 'next/router';
 
 
-const findspare = () => {
+const FindSpare = () => {
    const router = useRouter();
    const { name, gen, loc } = router.query;
 
@@ -17,7 +17,7 @@ const findspare = () => {
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const response = await fetch('/api/spare/filter?name=' + name + ((gen) ? '&gen=' + gen : "") + ((loc) ? '&loc=' + loc : ""));
+            const response = await fetch(process.env.PROXY_PATH+'/api/spare/filter?name=' + name + ((gen) ? '&gen=' + gen : "") + ((loc) ? '&loc=' + loc : ""));
             if (!response.ok) {
                throw new Error('Network response was not ok');
             }
@@ -48,4 +48,4 @@ const findspare = () => {
    );
 };
 
-export default findspare;
+export default FindSpare;
