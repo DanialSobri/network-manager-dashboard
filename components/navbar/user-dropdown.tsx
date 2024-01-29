@@ -3,7 +3,13 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { DarkModeSwitch } from './darkmodeswitch';
 
-export const UserDropdown = ({user:user}) => {
+interface JwtPayload {
+   // Define your JWT payload interface here
+   userId: string;
+   username: string;
+   role: string;
+ }
+export const UserDropdown = ({ user }:{ user: JwtPayload | null}) => {
    const router = useRouter();
 
    const handleLogout = () => {
@@ -23,9 +29,9 @@ export const UserDropdown = ({user:user}) => {
                <Avatar
                   bordered
                   as="button"
-                  color="secondary"
+                  color="gradient"
                   size="md"
-                  src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                  // src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
                />
             </Dropdown.Trigger>
          </Navbar.Item>

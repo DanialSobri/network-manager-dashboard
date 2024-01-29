@@ -37,7 +37,7 @@ export const LoginPage = () => {
     };
 
     return (
-        <Row gap={1} justify="center" align="center">
+        <Row gap={1} justify="center" align="center" css={{height:"100%", marginTop:"$20"}}>
             <Card css={{ p: "$6", mw: "400px" }}>
                 <Card.Header>
                     <Text h4 css={{ lineHeight: "$xs" }}>
