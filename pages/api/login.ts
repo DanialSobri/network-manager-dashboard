@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { openDb } from './db';
-import bcrypt from 'bcrypt';
+import passwordHash from 'password-hash';
 import jwt from 'jsonwebtoken'; // You need to install the jsonwebtoken package
 
 interface User {
-    id: number,
+    id: number;
     username: string;
     password: string;
     role: 'admin' | 'user'; // Role can be either 'admin' or 'user'
@@ -34,14 +34,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
 
             // Compare the provided password with the hashed password from the database
-            const isPasswordValid = await bcrypt.compare(password, user.password);
+            const isPasswordValid = passwordHash.verify(password, user.password);
 
             if (!isPasswordValid) {
                 return res.status(401).json({ message: 'Invalid username or password' });
             }
 
             // Generate a JWT token
-            const token = jwt.sign({ userId: user.id, username: user.username, role: user.role }, 'your_secret_key');
+            const token = jwt.sign({ userId: user.id, username: user.username, role: user.role }, "your_secret_key");
 
             db.end();
 

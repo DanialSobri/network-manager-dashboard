@@ -9,7 +9,6 @@ import { useRouter } from 'next/router';
 const findspare = () => {
    const router = useRouter();
    const { name, gen, loc } = router.query;
-   console.log(name, gen, loc)
 
    const [spares, setSpares] = useState([]);
    const [loading, setLoading] = useState(true);
@@ -18,7 +17,7 @@ const findspare = () => {
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const response = await fetch('/api/spare/filter?name=' + name + ((gen)? '&gen=' + gen : "") + ((loc)? '&loc=' + loc : ""));
+            const response = await fetch('/api/spare/filter?name=' + name + ((gen) ? '&gen=' + gen : "") + ((loc) ? '&loc=' + loc : ""));
             if (!response.ok) {
                throw new Error('Network response was not ok');
             }
@@ -39,7 +38,6 @@ const findspare = () => {
          setSpares([]);
       }
    }, [name, gen, loc]);
-   console.log(spares)
    return (
       <Container>
          <SelectDomain />
