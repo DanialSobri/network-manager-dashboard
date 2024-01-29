@@ -24,7 +24,7 @@ export const SelectDomain = () => {
 
     return (
         <Row gap={1} justify="flex-end" css={{ marginTop: "$10" }}>
-            < SpareCart/>
+            {/* < SpareCart/> */}
             <Dropdown>
                 <Dropdown.Button flat color="secondary" css={{ textTransform: "capitalize",marginLeft: "$5"}}>
                     {selected}

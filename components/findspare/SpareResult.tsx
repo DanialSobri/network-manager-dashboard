@@ -19,8 +19,13 @@ interface SpareData {
     Status: string;
 }
 
-export const SpareResult = ({ data }: { data: SpareData[] }) => {
-    const max_item = 5
+interface SpareResultProps {
+    data: SpareData[];
+    setData: React.Dispatch<React.SetStateAction<SpareData[]>>;
+}
+
+export const SpareResult: React.FC<SpareResultProps> = ({ data, setData }) => {
+    const max_item = 5;
 
     // State to control modal visibility and selected item data
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,6 +41,17 @@ export const SpareResult = ({ data }: { data: SpareData[] }) => {
     const closeModal = () => {
         setSelectedItem(null);
         setIsModalOpen(false);
+    };
+
+    // Function to handle updating the data after confirming in the modal
+    const updateData = (updatedItem: SpareData) => {
+        const newData = data.map(item => {
+            if (item.id === updatedItem.id) {
+                return updatedItem;
+            }
+            return item;
+        });
+        setData(newData);
     };
 
     return (
@@ -102,7 +118,6 @@ export const SpareResult = ({ data }: { data: SpareData[] }) => {
                             </Table.Cell>
                         </Table.Row>
                     )}
-
                 </Table.Body>
                 <Table.Pagination
                     shadow
@@ -114,7 +129,8 @@ export const SpareResult = ({ data }: { data: SpareData[] }) => {
                 />
             </Table>
             {isModalOpen && selectedItem && (
-                <SpareInfo item={selectedItem} onClose={closeModal} />
-            )}</div>
+                <SpareInfo item={selectedItem} onClose={closeModal} onUpdate={updateData} />
+            )}
+        </div>
     );
-}
+};

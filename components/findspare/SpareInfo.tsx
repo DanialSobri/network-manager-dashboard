@@ -21,14 +21,48 @@ interface SpareData {
 interface SpareInfoProps {
     item: SpareData; // Define the type for the selected item
     onClose: () => void; // Define the callback function for closing the modal
+    onUpdate: (updatedItem: SpareData) => void; // Define the callback function for updating the data
 }
 
-export const SpareInfo: React.FC<SpareInfoProps> = ({ item, onClose }) => {
+export const SpareInfo: React.FC<SpareInfoProps> = ({ item, onClose, onUpdate }) => {
     const [visible, setVisible] = React.useState(true);
 
     const closeHandler = () => {
+        console.log("Cancel");
         setVisible(false);
         onClose(); // Call the onClose callback function provided by the parent component
+    };
+
+    const useSpareHandler = async () => {
+        console.log("Use Spare "+item.id);
+        // Assuming here you have updated the item
+        const updatedItem = { ...item, Status: 'Faulty' }; // Modify the status as needed
+        onUpdate(updatedItem); // Call the onUpdate callback function provided by the parent component
+        setVisible(false);
+        onClose(); // Call the onClose callback function provided by the parent component\
+        
+        const apiUrl = process.env.PROXY_PATH+"/api/spare/use";
+        const payload = [
+            { "id": item.id, "Status": "Faulty" },
+        ];
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (response.ok) {
+                console.log("Spare used successfully!");
+            } else {
+                console.error("Failed to use spare:", response.status);
+            }
+        } catch (error) {
+            console.error("Error occurred while using spare:", error);
+        }
     };
 
     return (
@@ -41,7 +75,7 @@ export const SpareInfo: React.FC<SpareInfoProps> = ({ item, onClose }) => {
         >
             <Modal.Header css={{ justifyContent: 'start' }}>
                 <Text id="modal-title" h4>
-                    Spares Infomation {/* Display the ModelNumber of the selected item */}
+                    Spares Information {/* Display the ModelNumber of the selected item */}
                 </Text>
             </Modal.Header>
             <Divider css={{ my: '$5' }} />
@@ -55,6 +89,7 @@ export const SpareInfo: React.FC<SpareInfoProps> = ({ item, onClose }) => {
                     }}
                 >
                     {/* Display other details of the selected item */}
+                    <Text>Id: {item.id}</Text>
                     <Text>Spare: {item.ModelNumber}</Text>
                     <Text>Description: {item.Description}</Text>
                     <Text>Location: {item.Region} {item.Router} {item.Slot} {item.Port} {item.Item} {item.SubItem}</Text>
@@ -66,8 +101,8 @@ export const SpareInfo: React.FC<SpareInfoProps> = ({ item, onClose }) => {
             </Modal.Body>
             <Divider css={{ my: '$5' }} />
             <Modal.Footer>
-                <Button auto onClick={closeHandler}>
-                    Add to cart
+                <Button auto onPress={useSpareHandler}>
+                    Confirm
                 </Button>
             </Modal.Footer>
         </Modal>

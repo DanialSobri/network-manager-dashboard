@@ -35,15 +35,16 @@ const FindSpare = () => {
          fetchData();
       }
       else {
-         setSpares([]);
+         setSpares([]); // Initialize spares as an empty array
       }
    }, [name, gen, loc]);
+
    return (
       <Container>
          <SelectDomain />
          <Text h3>Find Spares</Text>
          <SpareFilter />
-         <SpareResult data={spares} />
+         <SpareResult data={spares} setData={setSpares as any} />
       </Container>
    );
 };
