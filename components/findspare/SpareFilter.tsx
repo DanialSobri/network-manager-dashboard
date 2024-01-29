@@ -4,6 +4,7 @@ import React, { useState, useTransition, useEffect } from 'react';
 
 export const SpareFilter = () => {
     const router = useRouter();
+    const prefix = process.env.PROXY_PATH || '';
     const currentPathname = router.pathname;
     const [isPending, startTransition] = useTransition();
 
@@ -38,7 +39,7 @@ export const SpareFilter = () => {
         params.delete('loc');
 
         startTransition(() => {
-            router.replace(`${currentPathname}?${params.toString()}`);
+            router.replace(prefix+`${currentPathname}?${params.toString()}`);
         });
     }
 

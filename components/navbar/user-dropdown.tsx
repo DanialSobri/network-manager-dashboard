@@ -19,7 +19,7 @@ export const UserDropdown = ({ user }:{ user: JwtPayload | null}) => {
       // Clear token from localStorage
       localStorage.removeItem('token');
       // Redirect to the login page
-      router.push('/login');
+      router.push(process.env.PROXY_PATH+'/login');
    };
 
    return (

@@ -51,7 +51,7 @@ export const SpareInfo: React.FC<SpareInfoProps> = ({ item, onClose }) => {
                     css={{
                         'flexWrap': 'wrap',
                         'gap': '$0',
-                        '@lg': { flexWrap: 'nowrap', gap: '$12' },
+                        '@lg': { flexWrap: 'nowrap', gap: '$0' },
                     }}
                 >
                     {/* Display other details of the selected item */}

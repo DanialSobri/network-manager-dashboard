@@ -105,11 +105,11 @@ export const CompaniesDropdown = () => {
                <Dropdown.Item
                   key="1"
                   icon={<AcmeIcon />}
-                  description="San Fransico, CA"
+                  description="Telekom Malaysia"
                >
-                  Facebook
+                  CINTM
                </Dropdown.Item>
-               <Dropdown.Item
+               {/* <Dropdown.Item
                   key="2"
                   icon={<AcmeLogo />}
                   description="Austin, Tx"
@@ -129,7 +129,7 @@ export const CompaniesDropdown = () => {
                   description="Palo Alto, CA"
                >
                   Acme Co.
-               </Dropdown.Item>
+               </Dropdown.Item> */}
             </Dropdown.Section>
          </Dropdown.Menu>
       </Dropdown>

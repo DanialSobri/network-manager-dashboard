@@ -11,7 +11,7 @@ export const LoginPage = () => {
 
     const handleSignIn = async () => {
         try {
-            const response = await fetch('/api/login', {
+            const response = await fetch(process.env.PROXY_PATH+'/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ export const LoginPage = () => {
                 localStorage.setItem('token', token);
                 // Redirect to the desired page
                 console.log("Debug:"+localStorage.getItem('token'));
-                router.push("/findspare");
+                router.push(process.env.PROXY_PATH+"/findspare");
 
             } else {
                 setError("Invalid username or password");

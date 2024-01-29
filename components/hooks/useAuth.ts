@@ -34,7 +34,7 @@ const useAuth = (): JwtPayload | null => {
       console.log('Token not found in localStorage');
       // You might want to handle this case based on your application requirements
       setDecodedToken(null);
-      router.push("/login");
+      router.push(process.env.PROXY_PATH+"/login");
     }
   }, []);
 
