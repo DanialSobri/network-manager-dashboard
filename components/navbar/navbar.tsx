@@ -1,5 +1,5 @@
-import {Input, Link, Navbar, Text} from '@nextui-org/react';
-import React from 'react';
+import {Container, Input, Link, Navbar, Text} from '@nextui-org/react';
+import React, { useEffect, useState } from 'react';
 import {FeedbackIcon} from '../icons/navbar/feedback-icon';
 import {GithubIcon} from '../icons/navbar/github-icon';
 import {SupportIcon} from '../icons/navbar/support-icon';
@@ -9,13 +9,31 @@ import {Flex} from '../styles/flex';
 import {BurguerButton} from './burguer-button';
 import {NotificationsDropdown} from './notifications-dropdown';
 import {UserDropdown} from './user-dropdown';
+import useAuth from '../hooks/useAuth';
 
 interface Props {
    children: React.ReactNode;
 }
 
 export const NavbarWrapper = ({children}: Props) => {
-   const collapseItems = [
+   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+   const jwtPayload = useAuth();
+
+   useEffect(() => {
+      console.log(jwtPayload)
+      if (jwtPayload) {
+         setIsLoggedIn(true);
+         console.log(isLoggedIn);
+        console.log('User ID:', jwtPayload.userId);
+        console.log('Username:', jwtPayload.username);
+      } else {
+         setIsLoggedIn(false);
+        console.log('Token is invalid or not provided.');
+      }
+    }, []);
+
+    const collapseItems = [
       'Profile',
       'Dashboard',
       'Activity',
@@ -117,7 +135,7 @@ export const NavbarWrapper = ({children}: Props) => {
                   </Link>
                </Navbar.Content> */}
                <Navbar.Content>
-                  <UserDropdown />
+                  <UserDropdown user={jwtPayload} />
                </Navbar.Content>
             </Navbar.Content>
 

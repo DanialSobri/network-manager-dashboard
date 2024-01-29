@@ -1,8 +1,27 @@
-import {Avatar, Dropdown, Navbar, Text} from '@nextui-org/react';
+import { Avatar, Dropdown, Navbar, Text } from '@nextui-org/react';
 import React from 'react';
-import {DarkModeSwitch} from './darkmodeswitch';
+import { useRouter } from 'next/router';
+import { DarkModeSwitch } from './darkmodeswitch';
 
-export const UserDropdown = () => {
+interface JwtPayload {
+   // Define your JWT payload interface here
+   userId: string;
+   username: string;
+   role: string;
+ }
+export const UserDropdown = ({ user }:{ user: JwtPayload | null}) => {
+   const router = useRouter();
+
+   const handleLogout = () => {
+      // Perform logout action here, such as clearing authentication token, etc.
+      // Then redirect to the login page
+      // For example:
+      // Clear token from localStorage
+      localStorage.removeItem('token');
+      // Redirect to the login page
+      router.push('/login');
+   };
+
    return (
       <Dropdown placement="bottom-right">
          <Navbar.Item>
@@ -10,25 +29,30 @@ export const UserDropdown = () => {
                <Avatar
                   bordered
                   as="button"
-                  color="secondary"
+                  color="gradient"
                   size="md"
-                  src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                  // src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
                />
             </Dropdown.Trigger>
          </Navbar.Item>
          <Dropdown.Menu
             aria-label="User menu actions"
-            onAction={(actionKey) => console.log({actionKey})}
+            onAction={(actionKey) => {
+               console.log({ actionKey });
+               if (actionKey === 'logout') {
+                  handleLogout();
+               }
+            }}
          >
-            <Dropdown.Item key="profile" css={{height: '$18'}}>
-               <Text b color="inherit" css={{d: 'flex'}}>
+            <Dropdown.Item key="profile" css={{ height: '$18' }}>
+               <Text b color="inherit" css={{ d: 'flex' }}>
                   Signed in as
                </Text>
-               <Text b color="inherit" css={{d: 'flex'}}>
-                  zoey@example.com
+               <Text b color="inherit" css={{ d: 'flex' }}>
+               {(user)?user.username:"Max Musterman"}
                </Text>
             </Dropdown.Item>
-            <Dropdown.Item key="settings" withDivider>
+            {/* <Dropdown.Item key="settings" withDivider>
                My Settings
             </Dropdown.Item>
             <Dropdown.Item key="team_settings">Team Settings</Dropdown.Item>
@@ -39,7 +63,7 @@ export const UserDropdown = () => {
             <Dropdown.Item key="configurations">Configurations</Dropdown.Item>
             <Dropdown.Item key="help_and_feedback" withDivider>
                Help & Feedback
-            </Dropdown.Item>
+            </Dropdown.Item> */}
             <Dropdown.Item key="logout" withDivider color="error">
                Log Out
             </Dropdown.Item>

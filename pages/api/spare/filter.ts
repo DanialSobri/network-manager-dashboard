@@ -1,5 +1,6 @@
 import { openDb } from "../db";
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { RowDataPacket } from "mysql2";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
@@ -22,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const db = await openDb();
 
             // Get spares from database using parameterized query
-            var spares = [];
+            var spares:RowDataPacket[] = [];
             
             
             switch ( gen ) {
