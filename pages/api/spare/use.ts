@@ -1,6 +1,5 @@
 import { openDb } from "../db";
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { RowDataPacket } from "mysql2";
 
 // Example Body request:
 // [
