@@ -6,13 +6,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
         if (req.method === 'GET') {
             let { name, gen, loc } = req.query;
+            // If both not stated
+            if(!name && !loc){
+                return res.status(400).json({ error: 'Invalid or missing name parameter' });
+            }
             // Check if name is provided and is a string
             if (!name || typeof name !== 'string') {
-                return res.status(400).json({ error: 'Invalid or missing name parameter' });
+                name = '%';
             }
 
             if (!loc || typeof loc !== 'string') {
-                loc = '%'
+                loc = '%';
             }
 
             if (!gen || typeof gen !== 'string') {

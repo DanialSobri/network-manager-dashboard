@@ -1,4 +1,4 @@
-import { Row, Col, Button, Input, Spacer } from "@nextui-org/react";
+import { Row, Col, Button, Input } from "@nextui-org/react";
 import { useRouter } from 'next/router';
 import React, { useState, useTransition, useEffect } from 'react';
 
@@ -39,19 +39,21 @@ export const SpareFilter = () => {
         params.delete('loc');
 
         startTransition(() => {
-            router.replace(prefix+`${currentPathname}?${params.toString()}`);
+            router.replace(prefix + `${currentPathname}?${params.toString()}`);
         });
     }
 
     return (
-        <Row align="center" justify="center" gap={0} css={{ marginTop: "$xl", marginBottom: "$10" }}>
+        <Row align="center" justify="center" gap={0} css={{ marginTop: "$xl", marginBottom: "$15" }}>
             <Col css={{ marginRight: "$10" }}>
                 <Input
                     fullWidth
                     labelPlaceholder="Spare Name"
                     value={spareName}
                     onChange={(e) => handleSearch('name', e.target.value)}
+                    helperText={"Enter Spare Eg: fpc,mic"}
                 />
+
             </Col>
             <Col css={{ marginRight: "$10" }}>
                 <Input
@@ -59,6 +61,7 @@ export const SpareFilter = () => {
                     labelPlaceholder="Spare Location"
                     value={spareLocation}
                     onChange={(e) => handleSearch('loc', e.target.value)}
+                    helperText={"Enter Hostname eg: core21.mc"}
                 />
             </Col>
             <Col>

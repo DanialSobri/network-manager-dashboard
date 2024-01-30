@@ -18,7 +18,9 @@ const Chart = dynamic(
    }
 );
 
-export const Content = () => (
+const Content = () => {
+
+   return (
    <Box css={{overflow: 'hidden', height: '100%'}}>
       <Flex
          css={{
@@ -187,5 +189,7 @@ export const Content = () => (
          </Flex>
          <TableWrapper />
       </Flex>
-   </Box>
-);
+   </Box>);
+   }
+
+export default Content;

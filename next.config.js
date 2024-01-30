@@ -7,7 +7,7 @@ const nextConfig = {
   },
   env: {
     // Set PROXY_PATH based on the environment
-    PROXY_PATH: process.env.NODE_ENV === 'prod' ? '/spare' : '',
+    PROXY_PATH: process.env.NODE_ENV !== 'prod' ? '/spare' : '',
   }
 };
 

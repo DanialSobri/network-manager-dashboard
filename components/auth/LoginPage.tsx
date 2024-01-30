@@ -24,7 +24,6 @@ export const LoginPage = () => {
                 // Store the token in localStorage
                 localStorage.setItem('token', token);
                 // Redirect to the desired page
-                console.log("Debug:"+localStorage.getItem('token'));
                 router.push(process.env.PROXY_PATH+"/findspare");
 
             } else {

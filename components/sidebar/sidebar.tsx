@@ -51,28 +51,22 @@ export const SidebarWrapper = () => {
                   <SidebarItem
                      title="Home"
                      icon={<HomeIcon />}
-                     isActive={router.pathname === '/'}
-                     href="/"
+                     // isActive={router.pathname === process.env.PROXY_PATH+'/'}
+                     href={process.env.PROXY_PATH+"/findspare"}
                   />
                   <SidebarMenu title="Spare Management">
                      <SidebarItem
-                        isActive={router.pathname === '/findspare'}
+                        isActive={router.pathname === process.env.PROXY_PATH+'/findspare'}
                         title="Find Spares"
                         icon={<BalanceIcon />}
-                        href="findspare"
+                        href={process.env.PROXY_PATH+"/findspare"}
                      />
-                     <SidebarItem
-                        isActive={router.pathname === '/accounts'}
+                     {/* <SidebarItem
+                        isActive={router.pathname === process.env.PROXY_PATH+'/accounts'}
                         title="Store"
                         icon={<AccountsIcon />}
-                        href="accounts"
-                     />
-                     <SidebarItem
-                        // isActive={router.pathname === '/'}
-                        title="Analytic"
-                        icon={<AccountsIcon />}
-                        href="/"
-                     />
+                        href={process.env.PROXY_PATH+"accounts"}
+                     /> */}
                      {/* <CollapseItems
                         icon={<BalanceIcon />}
                         isActive={router.pathname === '/findspare'}
@@ -109,7 +103,7 @@ export const SidebarWrapper = () => {
                   </SidebarMenu> */}
                </Sidebar.Body>
                <Sidebar.Footer>
-                  <Tooltip content={'Settings'} rounded color="primary">
+                  {/* <Tooltip content={'Settings'} rounded color="primary">
                      <SettingsIcon />
                   </Tooltip>
                   <Tooltip content={'Adjustments'} rounded color="primary">
@@ -120,7 +114,7 @@ export const SidebarWrapper = () => {
                         src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
                         size={'sm'}
                      />
-                  </Tooltip>
+                  </Tooltip> */}
                </Sidebar.Footer>
             </Flex>
          </Sidebar>

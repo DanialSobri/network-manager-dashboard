@@ -10,7 +10,6 @@ export const SelectDomain = () => {
     const currentPathname = router.pathname;
 
     const onChangeGen = (value: string) => {
-        console.log('Selected value changed:', value.toLowerCase());
         const params = new URLSearchParams(window.location.search);
         if (value) {
             params.set('gen', value);

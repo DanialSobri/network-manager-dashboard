@@ -21,15 +21,10 @@ export const NavbarWrapper = ({children}: Props) => {
    const jwtPayload = useAuth();
 
    useEffect(() => {
-      console.log(jwtPayload)
       if (jwtPayload) {
          setIsLoggedIn(true);
-         console.log(isLoggedIn);
-        console.log('User ID:', jwtPayload.userId);
-        console.log('Username:', jwtPayload.username);
       } else {
          setIsLoggedIn(false);
-        console.log('Token is invalid or not provided.');
       }
     }, []);
 
@@ -69,18 +64,18 @@ export const NavbarWrapper = ({children}: Props) => {
                '& .nextui-navbar-container': {
                   'border': 'none',
                   'maxWidth': '100%',
-
+                  'justifyContent': 'flex-end',
                   'gap': '$6',
                   '@md': {
-                     justifyContent: 'space-between',
+                     justifyContent: 'flex-end',
                   },
                },
             }}
          >
             <Navbar.Content showIn="md">
-               <BurguerButton />
+               {/* <BurguerButton /> */}
             </Navbar.Content>
-            <Navbar.Content
+            {/* <Navbar.Content
                hideIn={'md'}
                css={{
                   width: '100%',
@@ -110,22 +105,22 @@ export const NavbarWrapper = ({children}: Props) => {
                   }}
                   placeholder="Search..."
                />
-            </Navbar.Content>
+            </Navbar.Content> */}
             <Navbar.Content>
-               <Navbar.Content hideIn={'md'}>
+               {/* <Navbar.Content hideIn={'md'}>
                   <Flex align={'center'} css={{gap: '$4'}}>
                      <FeedbackIcon />
                      <Text span>Feedback?</Text>
                   </Flex>
-               </Navbar.Content>
+               </Navbar.Content> */}
 
                <Navbar.Content>
                   <NotificationsDropdown />
                </Navbar.Content>
 
-               <Navbar.Content hideIn={'md'}>
+               {/* <Navbar.Content hideIn={'md'}>
                   <SupportIcon />
-               </Navbar.Content>
+               </Navbar.Content> */}
                {/* <Navbar.Content>
                   <Link
                      href="https://github.com/"
