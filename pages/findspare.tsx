@@ -17,7 +17,7 @@ const FindSpare = () => {
    useEffect(() => {
       const fetchData = async () => {
          try {
-            const response = await fetch(process.env.PROXY_PATH+'/api/spare/filter?name=' + ((name) ? '&name=' + name : "")  + ((gen) ? '&gen=' + gen : "") + ((loc) ? '&loc=' + loc : ""));
+            const response = await fetch(process.env.PROXY_PATH+'/api/spare/filter?' + ((name) ? '&name=' + name : "")  + ((gen) ? '&gen=' + gen : "") + ((loc) ? '&loc=' + loc : ""));
             if (!response.ok) {
                throw new Error('Network response was not ok');
             }

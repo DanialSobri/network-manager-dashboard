@@ -37,6 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     break;
                 case "marvel":
                     // statement 1
+                    // console.log('SELECT * FROM spare_marvel WHERE Description LIKE `%'+name+'%` AND Router LIKE `%'+loc+'%`');
                     [spares] = await db.query('SELECT * FROM spare_marvel WHERE Description LIKE ? AND Router LIKE ?', [`%${name.toLowerCase()}%`, `%${loc.toLowerCase()}%`]) as any;
                     break;
                 default:
